@@ -19,9 +19,14 @@ export type Match = {
   /** Only for matches played with the shot clock. */
   log?: MatchLog
   createdAt: number
+  /**
+   * From the API: whether you may edit/delete it (you recorded or played in
+   * it). Missing on a match you just added, which is yours.
+   */
+  canEdit?: boolean
 }
 
-export type MatchInput = Omit<Match, 'id' | 'createdAt'>
+export type MatchInput = Omit<Match, 'id' | 'createdAt' | 'canEdit'>
 
 const isSideCount = (v: unknown) =>
   !!v && typeof v === 'object' && Number.isFinite((v as Record<string, unknown>).A) &&

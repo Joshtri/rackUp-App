@@ -9,10 +9,12 @@ import Fab from '@mui/material/Fab'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
+import { FriendsDialog } from './components/FriendsDialog'
 import { HistoryList } from './components/HistoryList'
 import { LiveSessionsBanner } from './components/LiveSessionsBanner'
 import {
   DownloadIcon,
+  FriendsIcon,
   EightBall,
   LogoutIcon,
   PlusIcon,
@@ -43,7 +45,8 @@ import {
   type Match,
   type MatchInput,
 } from './lib/matches'
-import { useAccounts } from './lib/accounts'
+import { useFriends } from './lib/friends'
+import type { Account } from './lib/api/users'
 import type { LiveSession } from './lib/api/liveSessions'
 import { liveSession, useActiveSessions, useLiveSession, type LiveEvent } from './lib/liveSession'
 import { serverNow } from './lib/serverClock'
@@ -136,8 +139,20 @@ export default function App() {
     }
   }
 
+  // Friends: you and your friends see each other's matches and live sessions.
+  // Gaining or losing one changes what's visible, so reload the history.
+  const friends = useFriends(() => void refresh())
+  const [friendsOpen, setFriendsOpen] = useState(false)
+  // Accounts a typed player name can be linked to: you and your friends.
+  const accounts = useMemo<Account[]>(
+    () => [
+      ...(user ? [{ id: user.id, username: user.username, displayName: user.displayName }] : []),
+      ...friends.friends,
+    ],
+    [user, friends.friends],
+  )
+
   // Live play session (shot clock), shared with the other phones through the API.
-  const accounts = useAccounts()
   const onLiveEvent = useCallback(
     (e: LiveEvent) => {
       if (e.type === 'ended') {
@@ -274,7 +289,12 @@ export default function App() {
       app: 'pocket-ball-trackers',
       version: 1,
       exportedAt: new Date().toISOString(),
-      matches,
+      // `canEdit` depends on who is logged in, so it doesn't belong in a backup.
+      matches: matches.map((m) => {
+        const copy = { ...m }
+        delete copy.canEdit
+        return copy
+      }),
     }
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
@@ -355,6 +375,13 @@ export default function App() {
           }
           items={[
             {
+              label: friends.incoming.length
+                ? `Teman (${friends.incoming.length} undangan)`
+                : 'Teman',
+              icon: <FriendsIcon />,
+              onClick: () => setFriendsOpen(true),
+            },
+            {
               label: 'Unduh backup',
               icon: <DownloadIcon />,
               onClick: exportData,
@@ -387,6 +414,28 @@ export default function App() {
           onChange={importData}
         />
       </header>
+
+      {friends.incoming.length > 0 && (
+        <section className="invite-banner" aria-label="Undangan teman">
+          <article className="live-banner__item">
+            <FriendsIcon aria-hidden="true" />
+            <div className="live-banner__info">
+              <p className="live-banner__eyebrow">Undangan teman</p>
+              <p>
+                <strong>
+                  {friends.incoming.length === 1
+                    ? friends.incoming[0].user.displayName
+                    : `${friends.incoming.length} orang`}
+                </strong>{' '}
+                ingin berteman denganmu
+              </p>
+            </div>
+            <Button variant="contained" size="small" onClick={() => setFriendsOpen(true)}>
+              Lihat
+            </Button>
+          </article>
+        </section>
+      )}
 
       <LiveSessionsBanner sessions={activeSessions} meId={user?.id} onJoin={joinSession} />
 
@@ -457,6 +506,16 @@ export default function App() {
               Catat skor
             </Button>
           </div>
+          {friends.loaded && friends.friends.length === 0 && (
+            <Button
+              variant="text"
+              color="inherit"
+              startIcon={<FriendsIcon />}
+              onClick={() => setFriendsOpen(true)}
+            >
+              Undang teman supaya bisa saling lihat skor
+            </Button>
+          )}
         </section>
       )}
 
@@ -512,6 +571,8 @@ export default function App() {
         players={players}
         onSave={handleSave}
       />
+
+      <FriendsDialog open={friendsOpen} onClose={() => setFriendsOpen(false)} friends={friends} />
 
       <SessionSetupDialog
         open={setupOpen}

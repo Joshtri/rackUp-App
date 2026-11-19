@@ -85,11 +85,16 @@ Backend (see `rackUp-api/.env.example`): `DATABASE_URL`, `DATABASE_URL_UNPOOLED`
 | --- | --- | --- |
 | POST | `/auth/login` | Login page |
 | GET | `/auth/me` | Session check on app load |
-| GET | `/matches` | Load history (and refresh after edits/imports) |
+| GET | `/matches` | Load history (and refresh after edits/imports). Only your own and your friends' matches; each has `canEdit` |
 | POST | `/matches` | Record a match, save a shot-clock session, undo a delete (client sends `id` + `createdAt`, so retries are safe) |
 | PUT | `/matches/{id}` | Edit a match |
 | DELETE | `/matches/{id}` | Delete a match |
 | POST | `/matches/import` | Import a backup file, upload old on-device data (batches of 5,000) |
+| GET | `/friends` | Friends dialog, invitation banner (polled every 60 s) |
+| POST | `/friends/requests` | Invite by username |
+| POST | `/friends/requests/{id}/accept` | Accept an invitation |
+| DELETE | `/friends/requests/{id}` | Decline / cancel an invitation |
+| DELETE | `/friends/{userId}` | Remove a friend |
 
 `GET /players` and `GET /matches/{id}` exist but the app doesn't need them. The player list comes from the loaded matches. Both are covered by the connection check.
 

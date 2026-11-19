@@ -30,7 +30,12 @@ Detail alur login, sesi, kedaluwarsa, env var, endpoint, dan cara tes koneksi AP
   - **Rack selesai**: pilih pemenang rack, skor rack bertambah (bisa dibatalkan lewat notifikasi).
   - Layar tidak mati selama sesi berjalan. Kalau halaman ter-refresh, sesi tetap jalan.
   - Saat sesi diakhiri, skor rack bisa langsung disimpan ke Riwayat.
-- **Sesi bersama (beberapa HP)**: sesi disimpan di server, jadi bisa diikuti dari HP lain.
+- **Teman**: menu `⋯` → *Teman* → undang lewat username. Setelah undangan diterima, kalian saling melihat riwayat, statistik, dan sesi yang sedang berjalan.
+  - Undangan masuk muncul sebagai kartu di halaman utama. Kalau dua orang saling mengundang, langsung berteman.
+  - Tulis nama pemain sama dengan nama akun (atau username) teman, supaya match terhubung ke akunnya. Nama yang sudah dipakai sebelum berteman ikut terhubung saat undangan diterima.
+  - Match hanya bisa diedit/dihapus oleh pemainnya dan yang mencatat; match teman lainnya hanya bisa dilihat.
+  - Putus teman lewat ikon hapus di daftar teman. Match yang kalian mainkan berdua tetap terlihat oleh keduanya.
+- **Sesi bersama (beberapa HP)**: sesi disimpan di server, jadi bisa diikuti dari HP kamu, HP teman, dan HP pemain yang terhubung ke akun.
   - HP lain melihat kartu *Sesi sedang berjalan* di halaman utama → **Gabung**. Jam, giliran, dan skor sama di semua HP (jeda ±1 detik). Semua HP boleh menekan tombol apa saja.
   - Nama pemain yang sama dengan nama akun (atau username) otomatis terhubung ke akun itu (terlihat di bawah kolom nama saat mulai sesi). Saat giliran pindah ke pemain itu, HP-nya bergetar dan menampilkan **Giliran kamu!**
   - Tombol sama ditekan di dua HP bersamaan (misal *Rack selesai*) tetap dihitung sekali.
@@ -42,7 +47,7 @@ Detail alur login, sesi, kedaluwarsa, env var, endpoint, dan cara tes koneksi AP
 - **Statistik**: klasemen pemain (main, menang, kalah, rack, win rate, 5 hasil terakhir) dan rekap head to head.
 - **Backup**: menu `⋯` di kanan atas → *Unduh backup* / *Impor dari file* (JSON). Impor menggabungkan data, tidak menimpa.
 
-Data disimpan di server (rackUp-api) dan **dipakai bersama oleh semua akun**: semua akun melihat, mengedit, dan menghapus riwayat yang sama. Daftar otomatis diperbarui saat aplikasi dibuka lagi dan tiap 30 detik. Data lama yang masih tersimpan di browser (versi sebelum ada login) bisa dipindahkan lewat menu `⋯` → *Unggah data di perangkat ini*.
+Data disimpan di server (rackUp-api). **Kamu hanya melihat data kamu sendiri dan teman kamu.** Daftar otomatis diperbarui saat aplikasi dibuka lagi dan tiap 30 detik. Data lama yang masih tersimpan di browser (versi sebelum ada login) bisa dipindahkan lewat menu `⋯` → *Unggah data di perangkat ini*.
 
 ## Install sebagai aplikasi (PWA)
 

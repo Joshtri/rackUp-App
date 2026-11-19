@@ -100,6 +100,12 @@ function messageFor(status: number, code?: string): string | undefined {
       return 'Sesi kamu sudah berakhir. Silakan masuk lagi.'
     case 'not_found':
       return 'Data tidak ditemukan. Mungkin sudah dihapus.'
+    case 'forbidden':
+      return 'Hanya pemain dan yang mencatat yang bisa mengubah catatan ini.'
+    case 'user_not_found':
+      return 'Username tidak ditemukan. Cek lagi ejaannya.'
+    case 'already_friends':
+      return 'Kalian sudah berteman.'
   }
   if (status >= 500) return 'Server sedang bermasalah. Coba lagi sebentar lagi.'
   return undefined

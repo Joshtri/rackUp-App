@@ -87,14 +87,17 @@ function MatchCard({
         )}
       </div>
 
-      <MoreMenu
-        className="match-card__menu"
-        label="Pilihan"
-        items={[
-          { label: 'Edit', icon: <EditIcon />, onClick: () => onEdit(m) },
-          { label: 'Hapus', icon: <TrashIcon />, onClick: () => onDelete(m), danger: true },
-        ]}
-      />
+      {/* A friend's match you didn't play in is read-only. */}
+      {m.canEdit !== false && (
+        <MoreMenu
+          className="match-card__menu"
+          label="Pilihan"
+          items={[
+            { label: 'Edit', icon: <EditIcon />, onClick: () => onEdit(m) },
+            { label: 'Hapus', icon: <TrashIcon />, onClick: () => onDelete(m), danger: true },
+          ]}
+        />
+      )}
     </li>
   )
 }
