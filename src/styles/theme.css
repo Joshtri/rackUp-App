@@ -1,0 +1,104 @@
+/*
+ * Theme tokens — ubah warna/font di sini saja.
+ * Default: "felt" (meja hijau gelap). Kalau HP/laptop pakai mode terang,
+ * otomatis pakai varian "chalk" di bawah.
+ * Paksa satu tema: <html data-theme="dark"> atau <html data-theme="light">.
+ */
+:root {
+  color-scheme: dark;
+
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Surfaces */
+  --bg: #0b2219;
+  --bg-glow: #17533a;
+  --surface: #12352a;
+  --surface-2: #184334;
+  --surface-hover: #1d4d3c;
+  --popup: #143a2d;
+  --border: rgb(243 239 227 / 0.1);
+  --border-strong: rgb(243 239 227 / 0.22);
+
+  /* Text */
+  --text: #f3efe3;
+  --text-muted: #a3bcae;
+  --text-faint: #6f8d7f;
+
+  /* Accents */
+  --accent: #e9c25b; /* brass — tombol utama & pemenang */
+  --accent-text: #241a02;
+  --accent-soft: rgb(233 194 91 / 0.14);
+  --danger: #f06a5a;
+  --danger-text: #2a0905;
+  --win: #e9c25b;
+  --loss: #f06a5a;
+  --draw: #a3bcae;
+  --focus: #8fd3ff;
+
+  /* Shape & depth */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  --shadow-popup: 0 18px 50px -10px rgb(0 0 0 / 0.65), 0 0 0 1px var(--border);
+  --backdrop: rgb(3 12 8 / 0.65);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    color-scheme: light;
+    --bg: #f4f0e4;
+    --bg-glow: #fffaf0;
+    --surface: #fffdf7;
+    --surface-2: #f1ecdf;
+    --surface-hover: #ebe5d5;
+    --popup: #fffdf7;
+    --border: rgb(20 35 28 / 0.1);
+    --border-strong: rgb(20 35 28 / 0.2);
+    --text: #14231c;
+    --text-muted: #55695f;
+    --text-faint: #8a9a91;
+    --accent: #0f5a3d;
+    --accent-text: #f7f3e6;
+    --accent-soft: rgb(15 90 61 / 0.1);
+    --danger: #c8372a;
+    --danger-text: #fff;
+    --win: #0f5a3d;
+    --loss: #c8372a;
+    --draw: #8a9a91;
+    --focus: #1d6fd1;
+    --shadow: 0 1px 2px rgb(20 35 28 / 0.06), 0 8px 24px -14px rgb(20 35 28 / 0.25);
+    --shadow-popup: 0 18px 50px -12px rgb(20 35 28 / 0.35), 0 0 0 1px var(--border);
+    --backdrop: rgb(20 35 28 / 0.4);
+  }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f0e4;
+  --bg-glow: #fffaf0;
+  --surface: #fffdf7;
+  --surface-2: #f1ecdf;
+  --surface-hover: #ebe5d5;
+  --popup: #fffdf7;
+  --border: rgb(20 35 28 / 0.1);
+  --border-strong: rgb(20 35 28 / 0.2);
+  --text: #14231c;
+  --text-muted: #55695f;
+  --text-faint: #8a9a91;
+  --accent: #0f5a3d;
+  --accent-text: #f7f3e6;
+  --accent-soft: rgb(15 90 61 / 0.1);
+  --danger: #c8372a;
+  --danger-text: #fff;
+  --win: #0f5a3d;
+  --loss: #c8372a;
+  --draw: #8a9a91;
+  --focus: #1d6fd1;
+  --shadow: 0 1px 2px rgb(20 35 28 / 0.06), 0 8px 24px -14px rgb(20 35 28 / 0.25);
+  --shadow-popup: 0 18px 50px -12px rgb(20 35 28 / 0.35), 0 0 0 1px var(--border);
+  --backdrop: rgb(20 35 28 / 0.4);
+}
